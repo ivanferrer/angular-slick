@@ -1,6 +1,6 @@
 'use strict';
 angular.module('slick', []).directive('slick', [
-  '$timeout',
+  '$timeout','$window',
   function ($timeout) {
     return {
       restrict: 'AEC',
@@ -124,6 +124,11 @@ angular.module('slick', []).directive('slick', [
                 return sl.slideHandler(currentIndex);
               }
             });
+            
+            angular.element($window).on('resize orientationchange', function() {
+               slider.slick('resize');
+            });
+            
             slider.on('afterChange', function (event, slick, currentSlide, nextSlide) {
               if (scope.onAfterChange) {
                 scope.onAfterChange();
